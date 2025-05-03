@@ -34,4 +34,24 @@
     return self;
 }
 
+- (void)randomize {
+    for (int i = 0; i < self.rows; i++) {
+        for (int j = 0; j < self.cols; j++) {
+            self.data[i][j] = @( ((float)arc4random() / UINT32_MAX) * 2 - 1);
+        }
+    }
+}
+
+- (void)print {
+    for (NSArray *row in self.data) {
+        NSMutableString *rowStr = [NSMutableString string];
+
+        for (NSNumber *val in row) {
+            [rowStr appendFormat:@"%.2f", [val floatValue]];
+        }
+
+        NSLog(@"%@", rowStr);
+    }
+}
+
 @end
