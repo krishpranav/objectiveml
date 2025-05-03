@@ -8,6 +8,7 @@
  *
  */
 
+#import <Foundation/Foundation.h>
 #import "MLTensor.h"
 
 @implementation MLTensor
@@ -30,16 +31,38 @@
             [_data addObject:row];
         }
     }
-
     return self;
 }
 
 - (void)randomize {
     for (int i = 0; i < self.rows; i++) {
         for (int j = 0; j < self.cols; j++) {
-            self.data[i][j] = @( ((float)arc4random() / UINT32_MAX) * 2 - 1);
+            self.data[i][j] = @( ((float)arc4random() / UINT32_MAX) * 2 - 1 );
         }
     }
+}
+
+- (MLTensor *)dot:(MLTensor *)other {
+    if (self.cols != other.rows) {
+        NSLog(@"Matrix dimension mismatch!");
+        return nil;
+    }
+
+    MLTensor *result = [[MLTensor alloc] initWithRows:self.rows cols:other.cols];
+
+    for (int i = 0; i < self.rows; i++) {
+        for (int j = 0; j < other.cols; j++) {
+            float sum = 0.0;
+            
+            for (int k = 0; k < self.cols; k++) {
+                sum += [self.data[i][k] floatValue] * [other.data[k][j] floatValue];
+            }
+
+            result.data[i][j] = @(sum);
+        }
+    }
+
+    return result;
 }
 
 - (void)print {
@@ -47,7 +70,7 @@
         NSMutableString *rowStr = [NSMutableString string];
 
         for (NSNumber *val in row) {
-            [rowStr appendFormat:@"%.2f", [val floatValue]];
+            [rowStr appendFormat:@"%.2f ", [val floatValue]];
         }
 
         NSLog(@"%@", rowStr);
