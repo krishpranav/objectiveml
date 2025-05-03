@@ -16,4 +16,7 @@
 @property (nonatomic, strong) MLTensor *weights;
 @property (nonatomic, strong) MLTensor *bias;
 
+- (instancetype)initWithInputSize:(NSInteger)input outputSize:(NSInteger)output;
+- (MLTensor *)forward:(MLTensor *)input;
+
 @end
