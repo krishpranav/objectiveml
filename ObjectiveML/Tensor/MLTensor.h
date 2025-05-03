@@ -1,12 +1,24 @@
-//
-//  MLTensor.h
-//  ObjectiveML
-//
-//  Created by Krisna Pranav on 03/05/25.
-//
+/**
+ * @file MLTensor.h
+ * @author Krisna Pranav
+ * @version 1.0
+ * @date 2025-05-03
+ *
+ * @copyright Copyright (c) 2025 Krisna Pranav
+ *
+ */
 
-#ifndef MLTensor_h
-#define MLTensor_h
+#import <Foundation/Foundation.h>
 
+@interface MLTensor : NSObject
 
-#endif /* MLTensor_h */
+@property (nonatomic, readonly) NSInteger rows;
+@property (nonatomic, readonly) NSInteger cols;
+@property (nonatomic, strong) NSMutableArray<NSMutableArray<NSNumber *> *> *data;
+
+- (instancetype)initWithRows:(NSInteger)rows cols:(NSInteger)cols;
+- (void)randomize;
+- (MLTensor *)dot:(MLTensor *)other;
+- (void)print;
+
+@end
