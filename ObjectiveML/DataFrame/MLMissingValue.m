@@ -19,14 +19,29 @@ MLMissingValue *uniValue;
     if (!uniValue) {
         uniValue = [[MLMissingValue alloc] init];
     }
-
     return uniValue;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
     return [MLMissingValue missingValue];
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {}
+
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+    return [MLMissingValue missingValue];
+}
+
+- (id)forwardingTargetForSelector:(SEL)aSelector
+{
+    return @(NAN);
+}
+
+- (NSString *)description
+{
+    return @"Missing Value";
+}
 
 @end
